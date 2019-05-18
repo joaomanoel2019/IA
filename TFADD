@@ -1,0 +1,30 @@
+# codigo original - Machine Learning with TensorFlow
+# 2019-05-17
+# @gustavopoli
+# --------------------------------------
+import tensorflow as tf
+
+x = tf.constant([[1., 2.]])
+y = tf.constant([[12., 4.]])
+
+Z = tf.Variable(tf.zeros([1, 2]))
+
+#Nesse ponto não sabemos qual o valor certo de Z , então usamos a função 'deviation' para nos ajudar;
+
+yy = tf.add(x, Z)
+deviation = tf.square(y - yy)
+
+#Então nós achamos o train_step usando o GradientDescentOptimizer e diminuindo o deviation e então achar o número mais próximo de Z;
+
+train_step = tf.train.GradientDescentOptimizer(0.01).minimize(deviation)
+
+#Depois de feito isto é a hora de criar o 'TF' e executar os passos;
+
+init = tf.global_variables_initializer()
+sess = tf.Session();
+sess.run(init)
+for i in range(5000):
+ sess.run(train_step)
+print(sess.run(Z))
+
+#https://medium.com/@liccowee/tensorflow-to-solve-simple-math-equation-27f42a44f0f1
